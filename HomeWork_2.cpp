@@ -128,13 +128,18 @@ void Simulation::test_b(Environment* p_E, Agent* p_A){
 
 void Simulation::test_c(Environment* p_E, Agent* p_A){
     while ((p_E->goal_location_breadth != p_A->breadth_location) || (p_E->goal_location_length != p_A->length_location)) {
+        cout<<"Position of goal in length and breadth"<<endl;
+        cout<<p_E->goal_location_length<<"\t"<<p_E->goal_location_breadth<<endl;
+        cout<<"Position of agent in length and breadth"<<endl;
+        cout<<p_A->length_location<<"\t"<<p_A->breadth_location<<endl;
+        
         if (p_E->goal_location_length > p_A->length_location) {
             //Go down
             p_A->length_location++;
             if ((p_E->board.at(p_A->length_location).at(p_A->breadth_location) != 1) ) {
                 p_E->board.at(p_A->length_location).at(p_A->breadth_location)=2;
             }
-        }else if (p_E->goal_location_breadth < p_A->length_location){
+        }else if (p_E->goal_location_length < p_A->length_location){
             //Go up
             p_A->length_location--;
             if ((p_E->board.at(p_A->length_location).at(p_A->breadth_location) != 1) ) {
@@ -203,7 +208,14 @@ void Simulation::init_simulation(int board_length, int board_breadth,vector<doub
     print_board(p_E);
     p_E->goal_location_length = goal_location.at(0);
     p_E->goal_location_breadth = goal_location.at(1);
+    //    p_E->goal_location_length = rand()%p_E->board.size();
+    //    p_E->goal_location_breadth = rand()%p_E->board.size();
     E.board.at(p_E->goal_location_length).at(p_E->goal_location_breadth) = 100;
+    
+    cout<<"Agent::"<<endl;
+    cout<<p_A->length_location<<"\t"<<p_A->breadth_location<<endl;
+    cout<<"Goal::"<<endl;
+    cout<<p_E->goal_location_length<<"\t"<<p_E->goal_location_breadth<<endl;
     switch (case_number) {
         case 1:
             test_a(agent_location, p_E, p_A);
@@ -231,10 +243,10 @@ int main(int argc, const char * argv[]) {
     srand(time(NULL));
     int board_length =10;
     int board_breadth =10;
-//    cout<<"Enter board length"<<endl;
-//    cin>>board_length;
-//    cout<<"Enter board breadth"<<endl;
-//    cin>>board_breadth;
+    //    cout<<"Enter board length"<<endl;
+    //    cin>>board_length;
+    //    cout<<"Enter board breadth"<<endl;
+    //    cin>>board_breadth;
     int case_number ;
     cout<<"Enter 1 to test A\n Enter 2 for Test A and B \n Enter 3 for Test A and C"<<endl;
     cin>>case_number;
@@ -242,8 +254,8 @@ int main(int argc, const char * argv[]) {
     agent_location.push_back(15); //length
     agent_location.push_back(15); //breadth
     vector<double> goal_location;
-    goal_location.push_back(7);
-    goal_location.push_back(4);
+    goal_location.push_back(2);
+    goal_location.push_back(2);
     Simulation S;
     S.init_simulation(board_length,board_breadth,agent_location,case_number,goal_location);
     return 0;
