@@ -246,25 +246,30 @@ void Simulation::test_b(Environment* p_E, Agent* p_A){
 
 void Simulation::test_c(Environment* p_E, Agent* p_A){
     while ((p_E->goal_location_breadth != p_A->breadth_location) || (p_E->goal_location_length != p_A->length_location)) {
-        if (p_E->goal_location_length >= p_A->length_location) {
+        cout<<"Position of goal in length and breadth"<<endl;
+        cout<<p_E->goal_location_length<<"\t"<<p_E->goal_location_breadth<<endl;
+        cout<<"Position of agent in length and breadth"<<endl;
+        cout<<p_A->length_location<<"\t"<<p_A->breadth_location<<endl;
+        
+        if (p_E->goal_location_length > p_A->length_location) {
             //Go down
             p_A->length_location++;
             if ((p_E->board.at(p_A->length_location).at(p_A->breadth_location) != 1) ) {
                 p_E->board.at(p_A->length_location).at(p_A->breadth_location)=2;
             }
-        }else if (p_E->goal_location_breadth <= p_A->length_location){
+        }else if (p_E->goal_location_length < p_A->length_location){
             //Go up
             p_A->length_location--;
             if ((p_E->board.at(p_A->length_location).at(p_A->breadth_location) != 1) ) {
                 p_E->board.at(p_A->length_location).at(p_A->breadth_location) = 2;
             }
-        }else if (p_E->goal_location_breadth >= p_A->breadth_location){
+        }else if (p_E->goal_location_breadth > p_A->breadth_location){
             //Go left
             p_A->breadth_location++;
             if (p_E->board.at(p_A->length_location).at(p_A->breadth_location) != 1) {
                 p_E->board.at(p_A->length_location).at(p_A->breadth_location) = 2;
             }
-        }else if (p_E->goal_location_breadth <= p_A->breadth_location){
+        }else if (p_E->goal_location_breadth < p_A->breadth_location){
             //Go right
             p_A->breadth_location--;
             if (p_E->board.at(p_A->length_location).at(p_A->breadth_location) != 1) {
