@@ -16,7 +16,7 @@
 using namespace std;
 
 #define population 1000
-#define generation 10000
+#define generation 50000
 #define cities 100
 
 class City{
@@ -89,9 +89,12 @@ public:
     void init_run_simulation();
     void print_status();
     void evolution();
+    void print_cities_to_text();
 };
 
 void Simulation::evolution(){
+    FILE* p_distance;
+    p_distance = fopen("distance","a" );
     for (int count_generataions = 0; count_generataions < generation; count_generataions++) {
         //Pick the best routes distance is less
         vector<double> removed_class;
@@ -168,7 +171,9 @@ void Simulation::evolution(){
             p_A->distance.clear();
         }
         
+        double short_distance = *min_element(p_A->history_total_distance.begin(),p_A->history_total_distance.end());
         
+        fprintf(p_distance, "%f \n", short_distance);
         
         cout<<"Distance"<<endl;
         for (int i=0; i<p_A->history_total_distance.size(); i++) {
@@ -176,6 +181,7 @@ void Simulation::evolution(){
         }
         cout<<endl;
     }
+    fclose(p_distance);
 }
 
 void Simulation::print_status(){
@@ -218,8 +224,18 @@ void Simulation::print_status(){
     
 }
 
+void Simulation::print_cities_to_text(){
+    FILE* p_F;
+    p_F = fopen("Cities", "a");
+    for (int i=0; i<p_E->all_cities.size(); i++) {
+        fprintf(p_F, "%f \t %f \n",p_E->all_cities.at(i).x_position,p_E->all_cities.at(i).y_position);
+    }
+    fclose(p_F);
+}
+
 void Simulation::create_environment(){
     p_E->create_random_cities(cities);
+    print_cities_to_text();
     init_run_simulation();
     print_status();
     evolution();
@@ -271,7 +287,7 @@ void Simulation::init_run_simulation(){
 
 int main(int argc, const char * argv[]) {
     srand(time(NULL));
-    cout << "Hello, World!\n";
+    cout << "To change number of cities please change cities in line 20 \n To change number of generations please change generations in line 19 \n To change number of routes for each generations please change population in line 18\n All cities x and y location will be printed out to text file \n Shortest distance for each route in generation will be printed to text file \n";
     Simulation S;
     S.create_environment();
     return 0;
