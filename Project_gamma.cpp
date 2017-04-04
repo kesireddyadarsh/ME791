@@ -236,11 +236,11 @@ void Simulation::evolution(){
             
             fprintf(p_distance, "%f \n", short_distance);
             
-            cout<<"Distance"<<endl;
-            for (int i=0; i<p_A->history_total_distance.size(); i++) {
-                cout<<p_A->history_total_distance.at(i)<<"\t";
-            }
-            cout<<endl;
+            //            cout<<"Distance"<<endl;
+            //            for (int i=0; i<p_A->history_total_distance.size(); i++) {
+            //                cout<<p_A->history_total_distance.at(i)<<"\t";
+            //            }
+            //            cout<<endl;
         }
         fclose(p_distance);
         
@@ -320,7 +320,7 @@ void Simulation::create_environment(){
     print_cities_to_text();
     init_run_simulation();
     test_low_level();
-    print_status();
+    //print_status();
     evolution();
     //print_status();
 }
