@@ -339,7 +339,7 @@ void Simulation::run_simulation(){
     bool dev_mode = true;
     double omega;
     
-   //take each network and make it reach goal
+    //take each network and make it reach goal
     for (int indi_network =0; indi_network<p_all_networks->size(); indi_network++) {
         
         S.reached_goal = false;
@@ -430,7 +430,7 @@ void Simulation::run_simulation(){
     print_location=fopen("X and Y locations", "a");
     for (int temp = 0; temp < S.all_paths_x_positions.size(); temp++) {
         for (int temp_1 =0; temp_1 <S.all_paths_x_positions.at(temp).size(); temp_1++) {
-            fprintf(print_location, "%f \t %f \n",S.all_paths_x_positions.at(temp).at(temp_1),S.all_paths_y_positions.at(temp).at(temp_1));
+            fprintf(print_location, "%f \t %f \t %d \n",S.all_paths_x_positions.at(temp).at(temp_1),S.all_paths_y_positions.at(temp).at(temp_1),temp_1);
         }
         fprintf(print_location, "\n\n");
     }
